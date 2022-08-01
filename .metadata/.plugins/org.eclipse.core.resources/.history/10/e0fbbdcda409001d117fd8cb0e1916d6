@@ -1,0 +1,79 @@
+import java.io.File;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.sql.Driver;
+import java.util.Scanner;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ById;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WindowType;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Sleeper;
+
+public class Chromelaunch {
+	
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		
+		ChromeOptions opt =new ChromeOptions();
+		opt.addExtensions(new File("app.crx"));
+		ChromeDriver driver = new ChromeDriver(opt);
+		driver.get("https://www.facebook.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.id("email")).sendKeys("bikram.biswas@tier5.in");
+		driver.findElement(By.id("pass")).sendKeys("Test@1234");
+		driver.findElement(By.name("login")).click();
+		
+		Thread.sleep(3000);
+		
+		driver.get("chrome-extension://pedfpcoomdincjgknooboacfaihaacpn/login.html");
+		driver.findElement(By.id("email")).sendKeys("bikram.biswas@tier5.in");
+		driver.findElement(By.id("password")).sendKeys("qwerty");
+		driver.findElement(By.id("login")).click();
+		Thread.sleep(5000);
+		driver.get("https://www.facebook.com/");
+		Thread.sleep(3000);
+		int i;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,15000)", "");
+	
+		
+		
+		for(i=1;i<=10;i++) {
+//			WebElement flag=driver.findElement(By.xpath("(//*[contains(@class, 'confirm')])["+i+"]"));
+//			js.executeScript("arguments[0].scrollIntoView();",flag);
+			Thread.sleep(3000);
+			String xPathForButton="(//*[contains(@class, 'confirm')])["+i+"]";
+			String xPathForConfirmation="(//button[contains(@id, 'confirmBtn')])";
+			String okay="(//button[contains(@id, 'subBtn')])["+1+"]";
+			System.out.println(xPathForButton);
+     		System.out.println(xPathForConfirmation);
+			
+			
+			
+			driver.findElement(By.xpath(xPathForButton)).click();
+			Thread.sleep(2000);
+			
+			driver.findElement(By.xpath(xPathForConfirmation)).click();
+			Thread.sleep(60000);
+			driver.findElement(By.xpath("//button[contains(@id, 'subBtn')]")).click();
+//			System.out.println(okay);
+			Thread.sleep(2000);
+ 			
+ 			js.executeScript("window.scrollBy(0,20000)", "");
+ 			Thread.sleep(3000);
+ 			js.executeScript("window.scrollBy(0,20000)", "");
+ 			
+		}
+	
+		
+	}
+
+}
