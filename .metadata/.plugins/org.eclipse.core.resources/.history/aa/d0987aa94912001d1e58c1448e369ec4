@@ -1,0 +1,76 @@
+import java.io.File;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.sql.Driver;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ById;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WindowType;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Sleeper;
+
+public class Chromelaunch {
+	
+
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) throws InterruptedException {
+		int j=1;
+		System.out.println("(//*[contains(@class, 'confirm')])["+j+"]\")");
+		ChromeOptions opt =new ChromeOptions();
+		opt.addExtensions(new File("app.crx"));
+		ChromeDriver driver = new ChromeDriver(opt);
+		driver.get("https://www.facebook.com/");
+		Thread.sleep(2000);
+		driver.manage().window().maximize();
+		driver.findElement(By.id("email")).sendKeys("bikram.biswas@tier5.in");
+		driver.findElement(By.id("pass")).sendKeys("Test@1234");
+		driver.findElement(By.name("login")).click();
+		
+		Thread.sleep(3000);
+		
+		driver.get("chrome-extension://pedfpcoomdincjgknooboacfaihaacpn/login.html");
+		driver.findElement(By.id("email")).sendKeys("bikram.biswas@tier5.in");
+		driver.findElement(By.id("password")).sendKeys("qwerty");
+		driver.findElement(By.id("login")).click();
+		Thread.sleep(5000);
+		driver.get("https://www.facebook.com/");
+		Thread.sleep(3000);
+		int i;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,15000)", "");
+	
+		
+		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+		for(i=1;i<=5;i++) {
+			
+
+			
+			driver.findElement(By.xpath("(//*[contains(@class, 'confirm')])["+i+"]")).click();
+			
+
+			driver.findElement(By.xpath("(//button[contains(@id, 'confirmBtn')])")).click();
+			
+			driver.findElement(By.xpath("(//button[contains(@id, 'subBtn')])["+1+"]")).click();                      
+
+ 			js.executeScript("window.scrollBy(0,20000)", "");
+
+			js.executeScript("window.scrollBy(0,20000)", "");
+			
+ 			
+		}
+		driver.get("chrome-extension://pedfpcoomdincjgknooboacfaihaacpn/dashboard.html");
+		String adCount =driver.findElement(By.id("listCount")).getText();
+		System.out.println(adCount);
+	
+		
+	}
+
+}
